@@ -64,6 +64,14 @@
 
     $gradient^2 vu(A) = -mu_0 vu(J)$
 
+    Magnetic Dipole
+
+    $vu(m) = I integral d vu(a') = I vu(a)$
+
+    $vu(A_"dip") = #k_mag (vu(m) times #curly_r) / cal(r)^2$
+
+    $B_"dip" = #k_mag (1/r^3) [3(vu(m) dot vuh(r)) vuh(r) - vu(m)]$
+
   ],
   cap: [Capacitance
 
@@ -100,6 +108,8 @@
     $vu(D) = epsilon vu(E), epsilon = epsilon_0 (1+chi_e) = epsilon_0 epsilon_r$
 
     $C = epsilon_r C_"vac"$
+
+    $W = epsilon_r W_"vac"$
 
   ],
   surface: [Surface
