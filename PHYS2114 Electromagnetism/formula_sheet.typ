@@ -7,10 +7,9 @@
 #let k_mag = $mu_0/(4pi)$
 
 #let curly_r = $cal(hat(bold(r)))$
-#grid(
-  gutter: 20pt,
-  columns: 3,
-  grid.cell(colspan:2)[
+
+#let parts = (
+  vre: grid.cell(colspan: 2)[
     $V,vu(E),rho$
     #table(
       columns: 3,
@@ -18,18 +17,21 @@
       stroke: none,
       table.header()[$V<->rho$][$vu(E)<->rho$][$vu(E)<->V$],
       table.hline(start: 0),
-      $V=#k integral rho/cal(r)$, $vu(E)=#k integral #curly_r/cal(r^2) rho d tau$, $vu(E)=-gradient V$,
-      $gradient^2 V = -rho/epsilon_0$, $rho/epsilon_0 = gradient dot vu(E)$, $V = -integral vu(E) dot d vu(l)$,
+      $V=#k integral rho/cal(r)$,
+      $vu(E)=#k integral #curly_r/cal(r^2) rho d tau$,
+      $vu(E)=-gradient V$,
+      $gradient^2 V = -rho/epsilon_0$,
+      $rho/epsilon_0 = gradient dot vu(E)$,
+      $V = -integral vu(E) dot d vu(l)$,
     )
     $V(vu(r)) = #k integral rho(vu(r')) / #curly_r d tau'$
   ],
-  [Work
+  work: [Work
 
     $W = epsilon_0/2 integral_"all space" E^2 d tau$
 
     $W = 1/2 integral rho V d tau$],
-
-  [Dipole
+  dipole: [Dipole
 
     $vu(p) = q vu(d) = integral vu(r') rho(vu(r')) d tau$
 
@@ -39,7 +41,7 @@
     &=#k 1/r^3(3(vu(p) dot hat(vu(r)))hat(vu(r)) - vu(p))$
 
   ],
-  [Magnetostatics
+  magneto: [Magnetostatics
 
     $vu(F) = Q[vu(E) + (vu(v) times vu(B))]$
 
@@ -52,7 +54,7 @@
 
     $gradient dot vu(J) = - (partial p) / (partial t) (= 0 "in steady current")$
 
-    $ gradient times vu(B) = mu_0 vu(J)$;$" "$ $integral.cont vu(B) dot d vu(l) = mu_0 I_"enc"$
+    $gradient times vu(B) = mu_0 vu(J)$;$" "$ $integral.cont vu(B) dot d vu(l) = mu_0 I_"enc"$
 
     From a segment of wire:
 
@@ -63,8 +65,7 @@
     $gradient^2 vu(A) = -mu_0 vu(J)$
 
   ],
-
-  [Capacitance
+  cap: [Capacitance
 
     $C = Q/V = (A epsilon_0) / d$
 
@@ -72,7 +73,7 @@
 
     $W = 1/2 C V^2 = Q^2/(2C)$
   ],
-  grid.cell(rowspan: 2)[Dielectrics (evil chapter 4)
+  polar: grid.cell(rowspan: 2)[Dielectrics (evil chapter 4)
 
     $E_e = #k q d / a^3, p = q d = (4 pi epsilon_0 a^3) E$
 
@@ -101,7 +102,7 @@
     $C = epsilon_r C_"vac"$
 
   ],
-  [Surface
+  surface: [Surface
 
     $vu(E) = sigma / epsilon_0 vuh(n)$
 
@@ -111,7 +112,22 @@
 
     $rho = epsilon_0/2 E^2$
   ],
-  [Maths #emoji.face.vomit
+  maths: [Maths #emoji.face.vomit
 
-  #include "coord_formulae.typ"
-])
+    #include "coord_formulae.typ"
+  ],
+)
+
+#grid(
+  gutter: 25pt,
+  columns: 3,
+  parts.vre,
+  parts.surface,
+  parts.work,
+  parts.dipole,
+  parts.cap,
+  parts.maths,
+
+  parts.polar,
+  parts.magneto,
+)
