@@ -123,7 +123,6 @@
     $rho = epsilon_0/2 E^2$
   ],
   maths: [Maths #emoji.face.vomit
-
     #include "coord_formulae.typ"
   ],
 )
