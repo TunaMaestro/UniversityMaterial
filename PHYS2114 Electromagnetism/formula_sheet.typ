@@ -1,6 +1,12 @@
 #set page("a4", margin: 10pt)
-
 #set par(spacing: 1em)
+
+#set text(font: (
+  "New Computer Modern",
+  "New Computer Modern Math",
+),
+size: 11pt)
+
 
 #let vu(x) = [$bold(upright(#x))$]
 #let vuh(x) = [$hat(vu(#x))$]
@@ -37,7 +43,10 @@
 
     $W = epsilon_0/2 integral_"all space" E^2 d tau$
 
-    $W = 1/2 integral rho V d tau$],
+    $W = 1/2 integral rho V d tau$
+
+    $W = 1/(2 mu_0) integral B^2; "pressure" = (partial E) / (partial tau) = B^2 / (2mu_0)$
+    ],
   dipole: [== Dipole
 
     $vu(p) = q vu(d) = integral vu(r') rho(vu(r')) d tau$
@@ -101,7 +110,7 @@
 
     $W = 1/2 C V^2 = Q^2/(2C)$
   ],
-  polar: grid.cell(rowspan: 2)[== Dielectrics (evil chapter 4)
+  polar: grid.cell(rowspan: 2)[== Dielectrics #text(size: 0.5em)[evil chapter 4]
 
     $E_e = #k q d / a^3, p = q d = (4 pi epsilon_0 a^3) E$
 
@@ -171,15 +180,32 @@
     $(mu_0 epsilon_0 partial_t^2 - gradient^2)phi = rho/epsilon_0$
 
     $(mu_0 epsilon_0 partial_t^2 - gradient^2)AA = mu_0 vu(J)$
-  ],
-  results: [== Results
 
-    *Field between cylinders*
+    === Misc
+    $vu(J) = rho vu(v); vu(K) = sigma vu(v)$
+  ],
+  results: [=== Results
+
+    Field between cylinders
     $EE = lambda / (2 pi epsilon_0 s) hat(vu(s))$
     $gradient dot (hat(vu(r))/r^2) = r pi delta^3(vu(r))$
 
-    *RLC* $I_0 = V_0 / sqrt(omega^2 L^2 + R^2), space tan(phi) = -(L omega) / R$
   ],
+  circuits: [=== Circuits
+    $I_0 = V_0 / sqrt(omega^2 L^2 + R^2), space tan(phi) = (omega L - 1/(omega C)) / R$
+
+    $cal(E) = - (partial Phi) / (partial t) = - L (dif I) / (dif t)$
+  ],
+  quasistatics: [== Steady Currents
+    $AA(vu(r)) = mu_0 I/(4 pi) integral.cont d vu(l) / abs(vu(r) - vu(r'))$
+
+    $AA(vu(r)) = mu_0 /(4 pi) integral (vu(J)(vu(r)', t') d tau') / R$
+    #text(size: 7pt, [$R = abs(vu(r) - vu(r'))$ $t = t-R/c$])
+
+    $M = mu_0 / (4 pi) integral.cont integral.cont (d l_1 dot d l_2) / abs(vu(r)_2 - vu(r)_1)$
+
+    $Phi_2 = M_21 I_1$
+  ]
 )
 
 #grid(
@@ -193,6 +219,8 @@
     #parts.maths
 
     #parts.results
+
+    #parts.circuits
   ],
   [
     #parts.dipole
@@ -207,5 +235,16 @@
     #parts.magneto
 
     #parts.radiation
+
+    #parts.quasistatics
+
+  Polarisation
+
+    $mat(
+      y y^*, y z^*;
+      z y^*, z z^*
+    )
+    $
+      
   ],
 )

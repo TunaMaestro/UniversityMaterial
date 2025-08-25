@@ -33,14 +33,28 @@ $nabla times vuc(v) = (1 / s frac(diff v_z, diff phi.alt) - frac(diff v_phi.alt,
 
 $nabla^2 t = 1 / s frac(diff, diff s) (s frac(diff t, diff s)) + 1 / s^2 frac(diff^2 t, diff phi.alt^2) + frac(diff^2 t, diff z^2) $
 
+=== Trig
+
+#let xpy = $(x+y)/2$
+#let xmy = $(x-y)/2$
+
+#list(marker: none,
+  $sin alpha sin beta = 1/2 (cos(alpha - beta) - cos(alpha + beta))$,
+  $sin alpha cos beta = 1/2 (sin(alpha - beta) + sin(alpha + beta))$,
+  $cos alpha cos beta = 1/2 (cos(alpha - beta) + cos(alpha + beta))$,
+  $sin alpha + sin beta = 2 sin xpy cos xmy $,
+  $sin alpha - sin beta = 2 sin xmy cos xpy $,
+  $cos alpha + cos beta = 2 cos xpy cos xmy $,
+  $cos alpha - cos beta = -2 sin xpy sin xmy $,
+)
 
 === 2A
 $integral(gradient dot vu(A)) dot d vu(a) = integral.cont vu(A) dot d vu(a)$
 
 $integral(gradient times vu(A)) dot d vu(a) = integral.cont vu(A) dot d vu(l)$
 
-(5) $gradient dot (f vu(A)) = f (gradient dot vu(A)) + vu(A) dot (gradient f)$
+$gradient dot (f vu(A)) = f (gradient dot vu(A)) + vu(A) dot (gradient f)$
 
-(6) $gradient dot (vu(A) times vu(B)) = vu(B) dot (gradient times vu(A)) - vu(A) dot (gradient times vu(B))$
+$gradient dot (vu(A) times vu(B)) = vu(B) dot (gradient times vu(A)) - vu(A) dot (gradient times vu(B))$
 
 ]
