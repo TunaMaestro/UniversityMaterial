@@ -39,4 +39,8 @@ $integral(gradient dot vu(A)) dot d vu(a) = integral.cont vu(A) dot d vu(a)$
 
 $integral(gradient times vu(A)) dot d vu(a) = integral.cont vu(A) dot d vu(l)$
 
+(5) $gradient dot (f vu(A)) = f (gradient dot vu(A)) + vu(A) dot (gradient f)$
+
+(6) $gradient dot (vu(A) times vu(B)) = vu(B) dot (gradient times vu(A)) - vu(A) dot (gradient times vu(B))$
+
 ]

@@ -1,4 +1,6 @@
-#set page("a4", margin: 12pt)
+#set page("a4", margin: 10pt)
+
+#set par(spacing: 1em)
 
 #let vu(x) = [$bold(upright(#x))$]
 #let vuh(x) = [$hat(vu(#x))$]
@@ -7,6 +9,11 @@
 #let k_mag = $mu_0/(4pi)$
 
 #let curly_r = $cal(hat(bold(r)))$
+
+#let BB = $vu(B)$
+#let AA = $vu(A)$
+#let EE = $vu(E)$
+#let nn = $hat(vu(n))$
 
 #let parts = (
   vre: grid.cell(colspan: 2)[
@@ -26,12 +33,12 @@
     )
     $V(vu(r)) = #k integral rho(vu(r')) / #curly_r d tau'$
   ],
-  work: [Work
+  work: [== Work
 
     $W = epsilon_0/2 integral_"all space" E^2 d tau$
 
     $W = 1/2 integral rho V d tau$],
-  dipole: [Dipole
+  dipole: [== Dipole
 
     $vu(p) = q vu(d) = integral vu(r') rho(vu(r')) d tau$
 
@@ -41,7 +48,7 @@
     &=#k 1/r^3(3(vu(p) dot hat(vu(r)))hat(vu(r)) - vu(p))$
 
   ],
-  magneto: [Magnetostatics
+  magneto: [== Magnetostatics
 
     $vu(F) = Q[vu(E) + (vu(v) times vu(B))]$
 
@@ -71,9 +78,22 @@
     $vu(A_"dip") = #k_mag (vu(m) times #curly_r) / cal(r)^2$
 
     $B_"dip" = #k_mag (1/r^3) [3(vu(m) dot vuh(r)) vuh(r) - vu(m)]$
-
   ],
-  cap: [Capacitance
+  radiation: [== Radiation
+
+    $BB = (1/c)[dot(AA) times hat(n)] = mu_0 / (4 pi c r)[dot.double(arrow(d)) times nn]$
+
+    $BB = 1/c [nn times EE] "    " EE = c[BB times nn]$
+
+    $vu(S) =1/mu_0[EE times BB] "  " W = epsilon_0 E^2 = B^2/mu_0$
+
+    $AA(r, t) = mu_0/(4 pi r) dot(arrow(d));$ $BB(r, t) = mu_0 / (4 pi r) [dot.double(arrow(d)) times nn]$
+
+    $(dif I) / (dif Omega) &= c/mu_0(B^2 r^2) = mu_0 / (16 pi^2c)[dot.double(arrow(d)) times nn]^2 \ &= mu_0 / (16 pi^2 c)dot.double(arrow(d))^2sin^2theta$
+
+    $P = mu_0/(6 pi c) dot.double(arrow(d))^2 = mu_0/(6 pi c)q^2a^2$
+  ],
+  cap: [== Capacitance
 
     $C = Q/V = (A epsilon_0) / d$
 
@@ -81,7 +101,7 @@
 
     $W = 1/2 C V^2 = Q^2/(2C)$
   ],
-  polar: grid.cell(rowspan: 2)[Dielectrics (evil chapter 4)
+  polar: grid.cell(rowspan: 2)[== Dielectrics (evil chapter 4)
 
     $E_e = #k q d / a^3, p = q d = (4 pi epsilon_0 a^3) E$
 
@@ -101,7 +121,7 @@
 
     $W = 1/2 integral vu(D) dot vu(E) d tau$
 
-    Linear:
+    === Linear:
 
     $vu(P) = epsilon_0 chi_e vu(E)$
 
@@ -112,7 +132,7 @@
     $W = epsilon_r W_"vac"$
 
   ],
-  surface: [Surface
+  surface: [== Surface
 
     $vu(E) = sigma / epsilon_0 vuh(n)$
 
@@ -122,21 +142,70 @@
 
     $rho = epsilon_0/2 E^2$
   ],
-  maths: [Maths #emoji.face.vomit
+  maths: [== Maths #emoji.face.vomit
     #include "coord_formulae.typ"
+  ],
+  skin: [
+  #line(length:100%)
+  === Skin
+
+    $gradient^2 BB = mu_0 sigma (partial BB) / (partial t)$
+
+    $gradient^2 vu(b) = -i mu_0 sigma w vu(b); delta = sqrt(2 / (mu_0 sigma w))$
+
+    $B_y(z,t) = B_0 e^(-z/delta)cos(z/delta - omega t)$
+
+    $J_x(z) = (sqrt(2) B_0)/(mu_0 delta) e^(-z/delta) cos(z/delta - omega t - pi/4)$
+
+    === Maxwell
+    #list(marker: none,
+      $gradient dot EE = rho/epsilon_0$,
+      $gradient dot BB = 0$,
+      $gradient times EE = -(partial BB) / (partial t)$,
+      $gradient times BB = mu_0 vu(J) + mu_0 epsilon_0 (partial EE) / (partial t)$,
+      $gradient dot vu(J) + (partial rho) / (partial t) = 0$,
+    )
+
+    ==== Lorentz Gauge
+
+    $(mu_0 epsilon_0 partial_t^2 - gradient^2)phi = rho/epsilon_0$
+
+    $(mu_0 epsilon_0 partial_t^2 - gradient^2)AA = mu_0 vu(J)$
+  ],
+  results: [== Results
+
+    *Field between cylinders*
+    $EE = lambda / (2 pi epsilon_0 s) hat(vu(s))$
+    $gradient dot (hat(vu(r))/r^2) = r pi delta^3(vu(r))$
+
+    *RLC* $I_0 = V_0 / sqrt(omega^2 L^2 + R^2), space tan(phi) = -(L omega) / R$
   ],
 )
 
 #grid(
   gutter: 25pt,
   columns: 3,
-  parts.vre,
-  parts.surface,
-  parts.work,
-  parts.dipole,
-  parts.cap,
-  parts.maths,
+  parts.vre, parts.surface,
 
-  parts.polar,
-  parts.magneto,
+  [
+    #parts.work
+
+    #parts.maths
+
+    #parts.results
+  ],
+  [
+    #parts.dipole
+
+    #parts.polar
+
+    #parts.skin
+  ],
+  [
+    #parts.cap
+
+    #parts.magneto
+
+    #parts.radiation
+  ],
 )
